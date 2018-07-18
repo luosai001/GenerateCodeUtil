@@ -21,7 +21,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * @author luosai
- * @Description: TODO(代码生成器工具类)
+ * @Description: (代码生成器工具类)
  * @date 2017-6-23 15:07
  */
 public class GeneratorUtils {

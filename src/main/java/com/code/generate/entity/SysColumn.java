@@ -2,7 +2,7 @@ package com.code.generate.entity;
 
 /**
  * @author luosai
- * @Description: TODO(列的属性)
+ * @Description: (列的属性)
  * @date 2017-6-23 15:07
  */
 public class SysColumn {
