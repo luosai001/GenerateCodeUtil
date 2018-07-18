@@ -1,0 +1,50 @@
+package ${package}.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import ${package}.dao.${className}Dao;
+import ${package}.domain.${className};
+import ${package}.service.${className}Service;
+
+@Service("${classNameLowercase}Service")
+public class ${className}ServiceImpl implements ${className}Service {
+
+	@Autowired
+	private ${className}Dao ${classNameLowercase}Dao;
+	
+	@Override
+	public ${className} query${className}By${pk.attrName}(${pk.attrType} ${pk.attrname}){
+		return ${classNameLowercase}Dao.query${className}By${pk.attrName}(${pk.attrname});
+	}
+	
+	@Override
+	public List<${className}> query${className}sBy${pk.attrName}s(List<${pk.attrType}> ${pk.attrname}s){
+		return ${classNameLowercase}Dao.query${className}sBy${pk.attrName}s(${pk.attrname}s);
+	}
+
+	@Override
+	public Integer save(${className} ${classname}){
+		return ${classNameLowercase}Dao.save(${classname});
+	}
+    @Override
+    public Integer saveBatch(List<${className}> ${classname}s){
+        return ${classNameLowercase}Dao.saveBatch(${classname}s);
+    }
+
+	@Override
+	public Integer update(${className} ${classname}){
+		return ${classNameLowercase}Dao.update(${classname});
+	}
+	
+	@Override
+	public Integer delete(${pk.attrType} ${pk.attrname}){
+		return ${classNameLowercase}Dao.delete(${pk.attrname});
+	}
+	
+	@Override
+	public Integer deleteBatch(List<${pk.attrType}> ${pk.attrname}s){
+		return ${classNameLowercase}Dao.deleteBatch(${pk.attrname}s);
+	}
+	
+}

@@ -1,0 +1,54 @@
+package ${package}.service;
+
+import ${package}.domain.${className};
+import java.util.List;
+
+/**
+ * @author ${author}
+ * @Description: (${comments})
+ * @date ${datetime}
+ */
+public interface ${className}Service {
+
+    /**
+    *  根据主键查询单个
+	*/
+	${className} query${className}By${pk.attrName}(${pk.attrType} ${pk.attrname});
+
+    /**
+	*  根据主键查询多个
+	*/
+	List<${className}> query${className}sBy${pk.attrName}s(List<${pk.attrType}> ${pk.attrname}s);
+
+    /**
+    *  保存单个
+	* @return
+	*/
+	Integer save(${className} ${classname});
+
+    /**
+    *  批量保存
+	* @return
+	*/
+	Integer saveBatch(List<$className> ${classname} );
+
+    /**
+    *  单个更新
+	* @return
+	*/
+    Integer update(${className} ${classname});
+
+    /**
+    *  根据主键单个删除
+	* @return
+	*/
+	Integer delete(${pk.attrType} ${pk.attrname});
+
+    /**
+	*  根据主键批量删除
+	* @return
+	*/
+    Integer deleteBatch(List<${pk.attrType}> ${pk.attrname}s);
+
+
+}

@@ -1,0 +1,88 @@
+package ${package}.dao.prodiver;
+
+import org.apache.ibatis.jdbc.SQL;
+
+import ${package}.domain.${className};
+import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import com.talebase.common.util.SqlBuilderUtil;
+
+public class ${className}Provider {
+
+    public String query${className}By${pk.attrName}(${pk.attrType} ${pk.attrname}){
+        return new SQL(){
+            {
+            #foreach($column in $columns)
+                SELECT("$column.columnName");
+            #end
+                FROM("${tableName}");
+                if (${pk.attrname} != null){
+                    WHERE("${pk.columnName} = #{${pk.attrname}}");
+                }
+            }
+        }.toString();
+    }
+
+    public String query${className}By${pk.attrName}s(List<${pk.attrType}> ${pk.attrname}s){
+        return new SQL(){
+            {
+            #foreach($column in $columns)
+                SELECT("$column.columnName");
+            #end
+                FROM("${tableName}");
+                if (${pk.attrname}s != null && ${pk.attrname}s.size() > 0 ){
+                    WHERE("${pk.columnName} "+ SqlBuilderUtil.buildInSql("${pk.attrname}s", ${pk.attrname}s.size()));
+                }
+            }
+        }.toString();
+    }
+
+
+    public String save(${className} ${classname}){
+        return new SQL(){
+            {
+                INSERT_INTO("${tableName}");
+
+        #foreach($column in $columns)
+            #if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+                VALUES("$column.columnName","#{$column.attrname}");
+            #end
+        #end
+            }
+        }.toString();
+    }
+
+    public String update(${className} ${classname}){
+        return new SQL(){
+            {
+                UPDATE(" ${tableName} ");
+    #foreach($column in $columns)
+        #if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+            if (${classname}.get${column.attrName}() != null){
+                SET("$column.columnName = #{${classname}.$column.attrname}");
+            }
+        #end
+    #end
+                WHERE("$pk.columnName = #{${classname}.$pk.attrname}");
+            }
+        }.toString();
+    }
+
+    public String delete(${pk.attrType} ${pk.attrname}){
+        return new SQL(){
+            {
+                DELETE_FROM(" ${tableName} ");
+                WHERE("$pk.columnName = #{$pk.attrname}");
+            }
+        }.toString();
+    }
+
+    public String deleteBatch(List<${pk.attrType}> ${pk.attrname}s){
+        return new SQL(){
+            {
+                DELETE_FROM(" ${tableName} ");
+                WHERE("${pk.columnName} "+ SqlBuilderUtil.buildInSql("${pk.attrname}s", ${pk.attrname}s.size()));
+            }
+        }.toString();
+    }
+}

@@ -1,0 +1,72 @@
+package ${package}.dao;
+
+import org.apache.ibatis.annotations.Insert;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
+import ${package}.domain.${className};
+import java.util.List;
+
+@Mapper
+public interface ${className}Dao {
+
+    /**
+    *  根据主键查询单个
+    */
+    @SelectProvider(type = ${className}Provider.class, method = "query${className}By${pk.attrName}")
+    ${className} query${className}By${pk.attrName}(@Param("${pk.attrname}")${pk.attrType} ${pk.attrname});
+
+    /**
+    *  根据主键查询多个
+    */
+    @SelectProvider(type = ${className}Provider.class, method = "query${className}By${pk.attrName}s")
+    List<${className}> query${className}sBy${pk.attrName}s(@Param("${pk.attrname}s") List<${pk.attrType}> ${pk.attrname}s);
+
+    /**
+    *  保存单个
+    * @return
+    */
+    @InsertProvider(type = ${className}Provider.class, method = "save")
+    @Options(useGeneratedKeys = true, keyProperty = "${pk.attrname}")
+    Integer save(${className} ${classname});
+
+    /**
+    *  批量保存
+    * @return
+    */
+    @Options(useGeneratedKeys = true, keyProperty = "${pk.attrname}")
+    @Insert(value = {"<script>",
+            "insert into $tableName( ",
+            "#foreach($column in $columns)#if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')$column.columnName#if($velocityCount != $columns.size()),#end #end #end",
+            ")",
+            "values",
+            "<foreach collection='list' item='item'  separator=',' index='index' >",
+            "(",
+            "#foreach($column in $columns)#if($column.columnName != $pk.columnName || $pk.extra !='auto_increment')#{item.$column.attrname}#if($velocityCount != $columns.size()), #end #end #end",
+            ")",
+            "</foreach>",
+            "</script>"})
+    Integer saveBatch( List<$className> ${classname}s );
+
+    /**
+    *  单个更新
+    * @return
+    */
+    @UpdateProvider(type = ${className}Provider.class, method = "update")
+    Integer update(@Param("${classname}")${className} ${classname});
+
+    /**
+    *  根据主键单个删除
+    * @return
+    */
+    @DeleteProvider(type = ${className}Provider.class, method = "delete")
+    Integer delete(@Param("${pk.attrname}")${pk.attrType} ${pk.attrname});
+
+    /**
+    *  根据主键批量删除
+    * @return
+    */
+    @DeleteProvider(type = ${className}Provider.class, method = "deleteBatch")
+    Integer deleteBatch(@Param("${pk.attrname}s") List<${pk.attrType}> ${pk.attrname}s);
+
+}
