@@ -27,7 +27,7 @@ public class UtilApplicationTests {
 		List<Map<String, Object>> maps = sysGeneratorService.queryList(new HashMap<>());
 		List<String> tableName = maps.stream().map(e -> (String)e.get("tableName")).collect(Collectors.toList());
 		byte[] bytes = sysGeneratorService.generatorCode(tableName.toArray(new String[]{}));
-		File file = new File("E:/talebase.zip");
+		File file = new File("E:/test.zip");
 		FileOutputStream fileOutputStream = new FileOutputStream(file);
 		fileOutputStream.write(bytes);
 		fileOutputStream.flush();
